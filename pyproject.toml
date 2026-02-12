@@ -1,0 +1,29 @@
+[project]
+name = "coder-stats"
+version = "0.1.0"
+description = "Stats for Codeberg and GitHub"
+authors = [
+    { name = "Sanngriðr", email = "sanngridhr@yamadachi.quest" }
+]
+license = "Beerware"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi (>=0.129.0,<0.130.0)",
+    "requests (>=2.32.5,<3.0.0)"
+]
+
+[dependency-groups]
+dev = [
+    "ruff (>=0.15.0,<0.16.0)",
+    "pytest (>=9.0.2,<10.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry]
+package-mode = false
