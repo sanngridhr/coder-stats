@@ -10,7 +10,8 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi (>=0.129.0,<0.130.0)",
-    "requests (>=2.32.5,<3.0.0)"
+    "requests (>=2.32.5,<3.0.0)",
+    "pydantic (>=2.12.5,<3.0.0)"
 ]
 
 [dependency-groups]
@@ -27,3 +28,17 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 package-mode = false
+
+
+[tool.ruff]
+exclude = ["migrations"]
+
+indent-width = 4
+line-length = 120
+
+[tool.ruff.format]
+indent-style = "space"
+quote-style = "double"
+
+[tool.ruff.lint]
+select = [ "B", "E", "F", "I", "N", "Q" ]
