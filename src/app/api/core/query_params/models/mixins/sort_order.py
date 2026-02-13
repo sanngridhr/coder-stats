@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from app.api.v1.query_params.constants.enums import SortOrder
+from app.api.core.query_params.constants.enums import SortOrder
 
 
 class SortOrderMixin(BaseModel):

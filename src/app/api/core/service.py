@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from httpx import URL, AsyncClient, Response
 
-from app.api.v1.shared.client import AsyncClientDependency
+from app.api.core.client import AsyncClientDependency
 
 
 class BaseService:

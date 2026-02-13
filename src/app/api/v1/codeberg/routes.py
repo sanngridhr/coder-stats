@@ -1,8 +1,8 @@
 from fastapi.routing import APIRouter
 
+from app.api.core.query_params.models import LanguagesQueryParamsDependency
 from app.api.v1.codeberg.models.responses import DetailWith, MessageAndUrl
 from app.api.v1.codeberg.service import CodebergServiceDependency
-from app.api.v1.query_params.models.languages_query_params import LanguagesQueryParamsDependency
 
 router: APIRouter = APIRouter(
     prefix="/codeberg",

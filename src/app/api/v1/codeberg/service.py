@@ -6,9 +6,9 @@ from fastapi import Depends
 from httpx import Response
 from pydantic import HttpUrl
 
+from app.api.core.query_params.models import LanguagesQueryParams
+from app.api.core.service import BaseService
 from app.api.v1.codeberg.models.foreign import Repositories
-from app.api.v1.query_params.models import LanguagesQueryParams
-from app.api.v1.shared.service import BaseService
 
 
 class CodebergService(BaseService):
