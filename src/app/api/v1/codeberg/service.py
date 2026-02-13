@@ -1,7 +1,7 @@
 from collections import Counter
 from typing import Annotated
 
-from fastapi import Depends
+from fastapi import Depends, HTTPException
 from httpx import Response
 from pydantic import HttpUrl
 
@@ -24,16 +24,20 @@ class CodebergService(BaseService):
         url: str = languages_url.encoded_string()
 
         resp: Response = await self._client.get(url)
-        languages = resp.json()
+        if resp.status_code != 200:
+            raise HTTPException(resp.status_code, detail=resp.json())
 
+        languages = resp.json()
         return languages
 
     async def __fetch_user_repos(self, username: str) -> Repositories:
         url: str = f"https://codeberg.org/api/v1/users/{username}/repos"
 
         resp: Response = await self._client.get(url)
-        repositories = resp.json()
+        if resp.status_code != 200:
+            raise HTTPException(resp.status_code, detail=resp.json())
 
+        repositories = resp.json()
         return Repositories.model_validate({"repositories": repositories})
 
 

@@ -3,9 +3,10 @@ from datetime import datetime
 from pydantic import BaseModel, HttpUrl
 
 from app.api.v1.codeberg.constants.enums import ExternalTrackerStyle, MergeStyle, ObjectFormatName, UpdateStyle
-from app.api.v1.codeberg.models.foreign.team import Team
-from app.api.v1.codeberg.models.foreign.user import User
 from app.api.v1.shared.types import EmptyStr, SshUrl
+
+from .team import Team
+from .user import User
 
 
 class ExternalTracker(BaseModel):
@@ -82,7 +83,7 @@ class Repository(BaseModel):
     name: str
     object_format_name: ObjectFormatName
     owner: User
-    parent: "Repository | None"
+    parent: Repository | None
     permissions: Permissions
     private: bool
     release_counter: int
