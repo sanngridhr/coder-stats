@@ -2,9 +2,10 @@ import asyncio
 from collections import Counter
 from typing import Annotated
 
+from aiocache import cached
+from aiocache.serializers import JsonSerializer
 from fastapi import Depends
 from httpx import Response
-from pydantic import HttpUrl
 
 from app.api.core.query_params.models import LanguagesQueryParams
 from app.api.core.service import BaseService
@@ -12,22 +13,25 @@ from app.api.v1.codeberg.models.foreign import Repositories
 
 
 class CodebergService(BaseService):
+    @cached(
+        ttl=300,
+        serializer=JsonSerializer(),
+        key_builder=lambda f, self, username, params: f"languages:{username}:{hash(params)}"
+    )
     async def get_user_languages(self, username: str, params: LanguagesQueryParams) -> dict[str, int]:
         repositories: Repositories = await self.__fetch_user_repos(username)
         languages: Counter[str] = Counter()
 
         languages_list: list[dict[str, int]] = await asyncio.gather(
-            *[self.__fetch_repo_languages(repo.languages_url) for repo in repositories.repositories]
+            *[self.__fetch_repo_languages(str(repo.languages_url)) for repo in repositories.repositories]
         )
         for languages_item in languages_list:
             languages += languages_item
 
-        return params.sort_languages(languages)
+        return params.sort_languages(languages)        
 
-    async def __fetch_repo_languages(self, languages_url: HttpUrl) -> dict[str, int]:
-        url: str = languages_url.encoded_string()
-
-        resp: Response = await self._get(url)
+    async def __fetch_repo_languages(self, languages_url: str) -> dict[str, int]:
+        resp: Response = await self._get(languages_url)
         languages = resp.json()
 
         return languages
