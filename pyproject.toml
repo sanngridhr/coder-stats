@@ -10,8 +10,9 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi (>=0.129.0,<0.130.0)",
-    "requests (>=2.32.5,<3.0.0)",
-    "pydantic (>=2.12.5,<3.0.0)"
+    "pydantic[email] (>=2.12.5,<3.0.0)",
+    "httpx (>=0.28.1,<0.29.0)",
+    "uvicorn (>=0.40.0,<0.41.0)"
 ]
 
 [dependency-groups]
@@ -27,7 +28,7 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.poetry]
-package-mode = false
+packages = [{ include = "app", from = "src" }]
 
 
 [tool.ruff]
