@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field, NonNegativeInt
+from pydantic import BaseModel, PositiveInt
 
 
 class LimitMixin(BaseModel):
-    limit: NonNegativeInt | None = None
+    limit: PositiveInt | None = None
