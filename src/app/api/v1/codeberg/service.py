@@ -1,23 +1,15 @@
 import asyncio
 from collections import Counter
-from typing import Annotated
+from typing import Annotated, Any
 
-from aiocache import cached
-from aiocache.serializers import JsonSerializer
 from fastapi import Depends
-from httpx import Response
 
 from app.api.core.query_params.models import LanguagesQueryParams
-from app.api.core.service import BaseService
+from app.api.core.services.base_service import BaseService
 from app.api.v1.codeberg.models.foreign import Repositories
 
 
 class CodebergService(BaseService):
-    @cached(
-        ttl=300,
-        serializer=JsonSerializer(),
-        key_builder=lambda f, self, username, params: f"languages:{username}:{hash(params)}"
-    )
     async def get_user_languages(self, username: str, params: LanguagesQueryParams) -> dict[str, int]:
         repositories: Repositories = await self.__fetch_user_repos(username)
         languages: Counter[str] = Counter()
@@ -28,20 +20,16 @@ class CodebergService(BaseService):
         for languages_item in languages_list:
             languages += languages_item
 
-        return params.sort_languages(languages)        
+        return params.sort_languages(languages)
 
     async def __fetch_repo_languages(self, languages_url: str) -> dict[str, int]:
-        resp: Response = await self._get(languages_url)
-        languages = resp.json()
-
+        languages: dict[str, int] = await self._get(languages_url)
         return languages
 
     async def __fetch_user_repos(self, username: str) -> Repositories:
         url: str = f"https://codeberg.org/api/v1/users/{username}/repos"
 
-        resp: Response = await self._get(url)
-        repositories = resp.json()
-
+        repositories: list[dict[str, Any]] = await self._get(url)
         return Repositories.model_validate({"repositories": repositories})
 
 

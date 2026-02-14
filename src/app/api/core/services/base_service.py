@@ -1,3 +1,6 @@
+from typing import Any
+
+from aiocache import cached
 from fastapi import HTTPException
 from httpx import URL, AsyncClient, Response
 
@@ -10,9 +13,10 @@ class BaseService:
     def __init__(self, client: AsyncClientDependency) -> None:
         self._client = client
 
-    async def _get(self, url: str | URL) -> Response:
+    @cached(ttl=300, noself=True)
+    async def _get(self, url: str | URL) -> Any:
         resp: Response = await self._client.get(url)
         if resp.status_code != 200:
             raise HTTPException(resp.status_code, detail=resp.json())
 
-        return resp
+        return resp.json()
