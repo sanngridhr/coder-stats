@@ -32,5 +32,4 @@ async def get_user_languages_pie(
     languages: dict[str, int] = await service.get_user_languages(username, params)
 
     fig: Figure = await datavis_service.get_donut_chart(languages)
-
     return await datavis_service.to_svg(fig)
