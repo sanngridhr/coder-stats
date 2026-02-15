@@ -3,4 +3,4 @@ from pydantic import BaseModel
 
 class MessageAndUrl(BaseModel):
     message: str
-    url: str
+    documentation_url: str

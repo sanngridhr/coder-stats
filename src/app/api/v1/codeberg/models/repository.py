@@ -9,9 +9,8 @@ from app.api.v1.codeberg.constants.enums import (
     ObjectFormatName,
     UpdateStyle,
 )
-
-from .team import Team
-from .user import User
+from app.api.v1.codeberg.models.team import Team
+from app.api.v1.codeberg.models.user import User
 
 
 class ExternalTracker(BaseModel):

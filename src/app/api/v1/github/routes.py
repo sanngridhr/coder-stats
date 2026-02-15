@@ -1,5 +1,4 @@
-from fastapi import Response
-from fastapi.routing import APIRouter
+from fastapi import APIRouter, Response
 from matplotlib.figure import Figure
 
 from app.api.core.models.responses import DetailWith
@@ -8,19 +7,19 @@ from app.api.core.query_params.models import (
     TextQueryParamsDependency,
 )
 from app.api.core.services.datavis_service import DataVisServiceDependency
-from app.api.v1.codeberg.models.responses import MessageAndUrl
-from app.api.v1.codeberg.service import CodebergServiceDependency
+from app.api.v1.github.models.responses import MessageAndUrl
+from app.api.v1.github.service import GitHubServiceDependency
 
 router: APIRouter = APIRouter(
-    prefix="/codeberg",
-    tags=["codeberg"],
+    prefix="/github",
+    tags=["github"],
     responses={404: {"model": DetailWith[MessageAndUrl]}},
 )
 
 
 @router.get("/{username}/languages")
 async def get_user_languages(
-    service: CodebergServiceDependency,
+    service: GitHubServiceDependency,
     params: TextQueryParamsDependency,
     username: str,
 ) -> dict[str, int]:
@@ -31,7 +30,7 @@ async def get_user_languages(
 
 @router.get("/{username}/languages/pie.svg")
 async def get_user_languages_pie(
-    service: CodebergServiceDependency,
+    service: GitHubServiceDependency,
     datavis_service: DataVisServiceDependency,
     params: PieChartQueryParamsDependency,
     username: str,

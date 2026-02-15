@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from typing import Any
 
 from aiocache import cached
@@ -7,7 +8,7 @@ from httpx import URL, AsyncClient, Response
 from app.api.core.client import AsyncClientDependency
 
 
-class BaseService:
+class BaseService(ABC):
     _client: AsyncClient
 
     def __init__(self, client: AsyncClientDependency) -> None:
@@ -20,3 +21,6 @@ class BaseService:
             raise HTTPException(resp.status_code, detail=resp.json())
 
         return resp.json()
+
+    @abstractmethod
+    async def get_user_languages(self, username: str) -> dict[str, int]: ...

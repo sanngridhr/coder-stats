@@ -1,7 +1,7 @@
-from typing import Annotated, Literal
+from typing import Annotated
 
 from fastapi import Depends
-from pydantic import Field, PositiveFloat, PositiveInt, model_validator
+from pydantic import Field, PositiveFloat, model_validator
 
 from app.api.core.query_params.constants.enums import Direction, Theme
 from app.api.core.query_params.models import BaseQueryParams
@@ -11,7 +11,6 @@ class PieChartQueryParams(BaseQueryParams):
     direction: Direction = Direction.CLOCKWISE
     font: str = "sans"
     gap: PositiveFloat = 0.05
-    limit: PositiveInt | Literal["auto"] = "auto"
     lump_small_data: bool = True
     radius: PositiveFloat = 0.8
     start_angle: float = Field(default=90, ge=0, lt=360)

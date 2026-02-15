@@ -5,10 +5,10 @@ from typing import Annotated, Any
 from fastapi import Depends
 
 from app.api.core.services.base_service import BaseService
-from app.api.v1.codeberg.models.repository import Repositories
+from app.api.v1.github.models.repository import Repositories
 
 
-class CodebergService(BaseService):
+class GitHubService(BaseService):
     async def get_user_languages(self, username: str, include_forked: bool) -> dict[str, int]:
         repositories: Repositories = await self.__fetch_user_repos(username)
         languages: Counter[str] = Counter()
@@ -30,10 +30,10 @@ class CodebergService(BaseService):
         return languages
 
     async def __fetch_user_repos(self, username: str) -> Repositories:
-        url: str = f"https://codeberg.org/api/v1/users/{username}/repos"
+        url: str = f"https://api.github.com/users/{username}/repos"
 
         repositories: list[dict[str, Any]] = await self._get(url)
         return Repositories.model_validate({"repositories": repositories})
 
 
-type CodebergServiceDependency = Annotated[CodebergService, Depends()]
+type GitHubServiceDependency = Annotated[GitHubService, Depends()]
