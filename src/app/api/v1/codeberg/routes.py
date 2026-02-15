@@ -2,7 +2,10 @@ from fastapi import Response
 from fastapi.routing import APIRouter
 from matplotlib.figure import Figure
 
-from app.api.core.query_params.models import PieChartQueryParamsDependency, TextQueryParamsDependency
+from app.api.core.query_params.models import (
+    PieChartQueryParamsDependency,
+    TextQueryParamsDependency,
+)
 from app.api.core.services.datavis_service import DataVisServiceDependency
 from app.api.v1.codeberg.models.responses import DetailWith, MessageAndUrl
 from app.api.v1.codeberg.service import CodebergServiceDependency

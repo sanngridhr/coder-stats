@@ -3,7 +3,12 @@ from datetime import datetime
 from pydantic import BaseModel, HttpUrl
 
 from app.api.core.types import EmptyStr, SshUrl
-from app.api.v1.codeberg.constants.enums import ExternalTrackerStyle, MergeStyle, ObjectFormatName, UpdateStyle
+from app.api.v1.codeberg.constants.enums import (
+    ExternalTrackerStyle,
+    MergeStyle,
+    ObjectFormatName,
+    UpdateStyle,
+)
 
 from .team import Team
 from .user import User

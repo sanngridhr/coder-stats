@@ -36,7 +36,7 @@ packages = [{ include = "app", from = "src" }]
 exclude = ["migrations"]
 
 indent-width = 4
-line-length = 120
+line-length = 99
 
 [tool.ruff.format]
 indent-style = "space"

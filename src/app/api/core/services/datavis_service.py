@@ -19,12 +19,15 @@ class DataVisService:
         svg_bytes: bytes = buffer.getvalue()
         return Response(content=svg_bytes, media_type="image/svg+xml")
 
-    def get_donut_chart(self, data: Mapping[str, int | float], params: PieChartQueryParams) -> Figure:
+    def get_donut_chart(
+        self,
+        data: Mapping[str, int | float],
+        params: PieChartQueryParams,
+    ) -> Figure:
+        limit: int = params.limit  # pyright: ignore[reportAssignmentType]
         colours: list[str] = [c + params.theme_transparency for c in params.theme.get_colours()]
         if params.theme_reverse:
             colours.reverse()
-
-        limit: int = len(colours) if params.limit is None else params.limit
 
         fig, ax = plt.subplots()
 
@@ -38,14 +41,22 @@ class DataVisService:
 
         ax.pie(
             x=values,
-            labels=keys,
+            labels=None,
             radius=params.radius,
             colors=colours,
             counterclock=(params.direction == Direction.ANTICLOCKWISE),
             startangle=params.start_angle,
-            textprops={"font": params.font},
             wedgeprops={"width": params.width},
             explode=[params.gap] * min(limit, len(values)),
+        )
+
+        ax.legend(
+            keys,
+            loc="center",
+            bbox_to_anchor=(0.53, 0.5),
+            frameon=False,
+            handlelength=1,
+            handleheight=1,
         )
 
         return fig
