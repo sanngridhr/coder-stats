@@ -4,13 +4,13 @@ from typing import Annotated, Any
 
 from fastapi import Depends
 
-from app.api.core.query_params.models import LanguagesQueryParams
+from app.api.core.query_params.models import TextQueryParams
 from app.api.core.services.base_service import BaseService
 from app.api.v1.codeberg.models.foreign import Repositories
 
 
 class CodebergService(BaseService):
-    async def get_user_languages(self, username: str, params: LanguagesQueryParams) -> dict[str, int]:
+    async def get_user_languages(self, username: str, params: TextQueryParams | None = None) -> dict[str, int]:  # pyright: ignore[reportRedeclaration]
         repositories: Repositories = await self.__fetch_user_repos(username)
         languages: Counter[str] = Counter()
 
@@ -19,6 +19,9 @@ class CodebergService(BaseService):
         )
         for languages_item in languages_list:
             languages += languages_item
+
+        if params is None:
+            params: TextQueryParams = TextQueryParams()
 
         return params.sort_languages(languages)
 

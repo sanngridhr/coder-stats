@@ -1,2 +1,5 @@
-from .languages_query_params import LanguagesQueryParams as LanguagesQueryParams
-from .languages_query_params import LanguagesQueryParamsDependency as LanguagesQueryParamsDependency
+from .base_query_params import BaseQueryParams as BaseQueryParams
+from .piechart_query_params import PieChartQueryParams as PieChartQueryParams
+from .piechart_query_params import PieChartQueryParamsDependency as PieChartQueryParamsDependency
+from .text_query_params import TextQueryParams as TextQueryParams
+from .text_query_params import TextQueryParamsDependency as TextQueryParamsDependency
