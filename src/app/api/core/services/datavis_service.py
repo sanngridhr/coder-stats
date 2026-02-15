@@ -20,7 +20,10 @@ class DataVisService:
         return Response(content=svg_bytes, media_type="image/svg+xml")
 
     def get_donut_chart(self, data: Mapping[str, int | float], params: PieChartQueryParams) -> Figure:
-        colours: list[str] = params.get_colours()
+        colours: list[str] = [c + params.theme_transparency for c in params.theme.get_colours()]
+        if params.theme_reverse:
+            colours.reverse()
+
         limit: int = len(colours) if params.limit is None else params.limit
 
         fig, ax = plt.subplots()
@@ -42,7 +45,7 @@ class DataVisService:
             startangle=params.start_angle,
             textprops={"font": params.font},
             wedgeprops={"width": params.width},
-            explode=[params.gap] * limit,
+            explode=[params.gap] * min(limit, len(values)),
         )
 
         return fig
@@ -52,8 +55,8 @@ class DataVisService:
         data: Mapping[str, int | float],
         limit: int,
     ) -> dict[str, int | float]:
-        major: dict[str, int | float] = {k: v for k, v in list(data.items())[:limit - 1]}
-        minor_sum: int | float = sum(v for v in list(data.values())[limit :])
+        major: dict[str, int | float] = {k: v for k, v in list(data.items())[: limit - 1]}
+        minor_sum: int | float = sum(v for v in list(data.values())[limit:])
 
         if minor_sum > 0:
             major["Other"] = minor_sum
