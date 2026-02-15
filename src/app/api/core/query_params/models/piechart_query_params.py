@@ -16,9 +16,9 @@ class PieChartQueryParams(BaseQueryParams):
     radius: PositiveFloat = 1.0
     start_angle: float = Field(default=90, ge=0, lt=360)
     theme: Theme = Theme.FLEXOKI_DARK
-    width: PositiveFloat = 0.2
     theme_reverse: bool = False
     theme_transparency: str = Field(default="FF", pattern=r"[0-9A-F]{2}")
+    width: PositiveFloat = 0.2
 
 
 type PieChartQueryParamsDependency = Annotated[PieChartQueryParams, Depends()]
