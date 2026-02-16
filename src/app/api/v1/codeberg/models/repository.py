@@ -102,7 +102,3 @@ class Repository(BaseModel):
     watchers_count: int
     website: HttpUrl | EmptyStr
     wiki_branch: str
-
-
-class Repositories(BaseModel):
-    repositories: list[Repository]

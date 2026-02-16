@@ -23,7 +23,7 @@ async def get_user_languages(
     params: TextQueryParamsDependency,
     username: str,
 ) -> dict[str, int]:
-    languages: dict[str, int] = await service.get_user_languages(username, params.include_forked)
+    languages: dict[str, int] = await service.get_user_languages(username, params.include_forks)
 
     return params.sort(languages)
 
@@ -35,7 +35,7 @@ async def get_user_languages_pie(
     params: PieChartQueryParamsDependency,
     username: str,
 ) -> Response:
-    languages: dict[str, int] = await service.get_user_languages(username, params.include_forked)
+    languages: dict[str, int] = await service.get_user_languages(username, params.include_forks)
     data: dict[str, int] = dict(sorted(languages.items(), key=lambda item: item[1], reverse=True))
 
     fig: Figure = datavis_service.get_donut_chart(data, params)

@@ -88,7 +88,3 @@ class Repository(BaseModel):
     url: HttpUrl
     visibility: Visibility
     watchers_count: int
-
-
-class Repositories(BaseModel):
-    repositories: list[Repository]
