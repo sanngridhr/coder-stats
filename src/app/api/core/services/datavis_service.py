@@ -2,7 +2,7 @@ from io import BytesIO
 from typing import Annotated, Mapping
 
 import matplotlib.pyplot as plt
-from fastapi import Depends, Response
+from fastapi import Depends
 from matplotlib.figure import Figure
 
 from app.api.core.query_params.constants.enums import Direction
@@ -10,14 +10,13 @@ from app.api.core.query_params.models.piechart_query_params import PieChartQuery
 
 
 class DataVisService:
-    def to_svg(self, fig: Figure) -> Response:
+    def to_svg(self, fig: Figure) -> bytes:
         buffer: BytesIO = BytesIO()
 
         fig.savefig(fname=buffer, format="svg")
         plt.close(fig)
 
-        svg_bytes: bytes = buffer.getvalue()
-        return Response(content=svg_bytes, media_type="image/svg+xml")
+        return buffer.getvalue()
 
     def get_donut_chart(
         self,

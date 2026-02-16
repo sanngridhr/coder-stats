@@ -1,22 +1,13 @@
-from typing import Annotated, Any
-
-from fastapi import Depends
+from typing import Any
 
 from app.api.core.models.list_model import ModelList
-from app.api.core.services.base_service import BaseService
+from app.api.core.services.git_service import GitService
 from app.api.v1.codeberg.models.repository import Repository
 
 
-class CodebergService(BaseService):
-    async def _fetch_repo_languages(self, languages_url: str) -> dict[str, int]:
-        languages: dict[str, int] = await self._get(languages_url)
-        return languages
-
+class CodebergService(GitService):
     async def _fetch_user_repos(self, username: str) -> ModelList:
         url: str = f"https://codeberg.org/api/v1/users/{username}/repos"
 
         repositories: list[dict[str, Any]] = await self._get(url)
-        return ModelList[Repository].model_validate({"repositories": repositories})
-
-
-type CodebergServiceDependency = Annotated[CodebergService, Depends()]
+        return ModelList[Repository].model_validate({"models": repositories})
