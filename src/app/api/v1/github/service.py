@@ -1,6 +1,6 @@
 from typing import Any
 
-from app.api.core.models.list_model import ModelList
+from app.api.core.models.model_list import ModelList
 from app.api.core.services.git_service import GitService
 from app.api.v1.github.models.repository import Repository
 

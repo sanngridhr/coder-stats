@@ -7,7 +7,7 @@ from fastapi import HTTPException
 from httpx import URL, AsyncClient, Response
 
 from app.api.core.client import AsyncClientDependency
-from app.api.core.models.list_model import ModelList
+from app.api.core.models.model_list import ModelList
 
 
 class GitService(ABC):
