@@ -77,7 +77,7 @@ class Repository(BaseModel):
     id: int
     ignore_whitespace_conflicts: bool
     internal: bool
-    internal_tracker: InternalTracker
+    internal_tracker: InternalTracker | None = None
     language: str
     languages_url: HttpUrl
     link: HttpUrl | EmptyStr

@@ -8,7 +8,7 @@ from app.api.core.services.get_service import GitServiceDependency
 
 router: APIRouter = APIRouter(prefix="/v1")
 
-@router.get("/{provider}/u/{username}/languages")
+@router.get("/{provider}/u/{username}/languages", tags=["user"])
 async def get_user_languages(
     service: GitServiceDependency,
     params: TextQueryParamsDependency,
@@ -19,7 +19,7 @@ async def get_user_languages(
     )
     return params.sort(languages)
 
-@router.get("/{provider}/u/{username}/languages/pie.svg")
+@router.get("/{provider}/u/{username}/languages/pie.svg", tags=["user"])
 async def get_user_languages_pie(
     service: GitServiceDependency,
     datavis_service: DataVisServiceDependency,
