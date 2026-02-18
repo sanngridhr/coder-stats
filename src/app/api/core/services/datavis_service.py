@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from fastapi import Depends
 from matplotlib.figure import Figure
 
-from app.api.core.query_params.constants.enums import Direction
+from app.api.core.query_params.enums import Direction
 from app.api.core.query_params.models.piechart_query_params import PieChartQueryParams
 
 
@@ -27,7 +27,6 @@ class DataVisService:
         gradient: list[str] = [c + params.theme_transparency for c in params.theme.gradient]
         if params.theme_reverse:
             gradient.reverse()
-        bg, fg = params.theme.background, params.theme.foreground
 
         fig, ax = plt.subplots()
 
@@ -39,14 +38,13 @@ class DataVisService:
         keys: list[str] = list(cut_data.keys())
         values: list[int | float] = list(cut_data.values())
 
-
         ax.pie(
             x=values,
             labels=None,
             radius=params.radius,
             colors=gradient,
             explode=[params.gap] * len(values),
-            wedgeprops={"width": params.width, "edgecolor": bg},
+            wedgeprops={"width": params.width, "edgecolor": params.theme.background},
             counterclock=(params.direction == Direction.ANTICLOCKWISE),
             startangle=params.start_angle,
         )

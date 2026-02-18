@@ -1,6 +1,6 @@
 from pydantic import BaseModel, HttpUrl
 
-from app.api.v1.github.constants.enums import UserType
+from app.api.v1.github.enums import UserType
 
 
 class User(BaseModel):

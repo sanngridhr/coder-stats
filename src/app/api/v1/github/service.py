@@ -9,5 +9,7 @@ class GitHubService(GitService):
     async def _fetch_user_repos(self, username: str) -> ModelList:
         url: str = f"https://api.github.com/users/{username}/repos"
 
-        repositories: list[dict[str, Any]] = await self._get(url)
+        repositories: list[dict[str, Any]] = await self._get(
+            url, params={"sort": "updated", "per_page": 100}
+        )
         return ModelList[Repository].model_validate({"models": repositories})

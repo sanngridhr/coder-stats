@@ -4,7 +4,7 @@ from typing import Literal
 from pydantic import BaseModel, Field, HttpUrl
 
 from app.api.core.types import EmptyStr, GitUrl
-from app.api.v1.github.constants.enums import Visibility
+from app.api.v1.github.enums import Visibility
 from app.api.v1.github.models.user import User
 
 

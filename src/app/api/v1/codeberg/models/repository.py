@@ -3,11 +3,10 @@ from datetime import datetime
 from pydantic import BaseModel, HttpUrl
 
 from app.api.core.types import EmptyStr, SshUrl
-from app.api.v1.codeberg.constants.enums import (
+from app.api.v1.codeberg.enums import (
     ExternalTrackerStyle,
     MergeStyle,
     ObjectFormatName,
-    UpdateStyle,
 )
 from app.api.v1.codeberg.models.team import Team
 from app.api.v1.codeberg.models.user import User
@@ -16,7 +15,7 @@ from app.api.v1.codeberg.models.user import User
 class ExternalTracker(BaseModel):
     external_tracker_format: str
     external_tracker_regexp_pattern: str
-    external_tracker_style: ExternalTrackerStyle
+    external_tracker_style: ExternalTrackerStyle | EmptyStr
     external_tracker_url: HttpUrl
 
 
@@ -58,7 +57,7 @@ class Repository(BaseModel):
     default_branch: str
     default_delete_branch_after_merge: bool
     default_merge_style: MergeStyle
-    default_update_style: UpdateStyle
+    default_update_style: MergeStyle
     description: str
     empty: bool
     external_tracker: ExternalTracker | None = None

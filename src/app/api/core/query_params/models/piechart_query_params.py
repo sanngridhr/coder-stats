@@ -3,9 +3,9 @@ from typing import Annotated
 from fastapi import Depends
 from pydantic import Field, PositiveFloat, model_validator
 
-from app.api.core.query_params.constants.enums import Direction
-from app.api.core.query_params.models import BaseQueryParams
-from app.api.core.theme.constants.enums import Theme
+from app.api.core.query_params.enums import Direction
+from app.api.core.query_params.models.base_query_params import BaseQueryParams
+from app.api.core.theme.enums import Theme
 
 
 class PieChartQueryParams(BaseQueryParams):

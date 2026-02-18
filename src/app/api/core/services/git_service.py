@@ -1,14 +1,13 @@
 import asyncio
 from abc import ABC, abstractmethod
-from typing import Annotated, Any, Counter, TypeAlias
+from typing import Any, Counter
 
 from aiocache import cached
-from fastapi import Depends, HTTPException, Path
+from fastapi import HTTPException
 from httpx import URL, AsyncClient, Response
 
 from app.api.core.client import AsyncClientDependency
 from app.api.core.models.model_list import ModelList
-from app.api.core.services.constants.enums import GitProvider
 
 
 class GitService(ABC):
@@ -41,8 +40,8 @@ class GitService(ABC):
     async def _fetch_user_repos(self, username: str) -> ModelList: ...
 
     @cached(ttl=300, noself=True)
-    async def _get(self, url: str | URL) -> Any:
-        resp: Response = await self._client.get(url)
+    async def _get(self, url: str | URL, **kwargs) -> Any:
+        resp: Response = await self._client.get(url, **kwargs)
         if resp.status_code != 200:
             raise HTTPException(resp.status_code, detail=resp.json())
 

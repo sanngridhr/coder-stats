@@ -2,7 +2,7 @@ from fastapi import Response
 from fastapi.routing import APIRouter
 from matplotlib.figure import Figure
 
-from app.api.core.constants.enums import Tags
+from app.api.core.enums import Tags
 from app.api.core.query_params.models import (
     PieChartQueryParamsDependency,
     TextQueryParamsDependency,

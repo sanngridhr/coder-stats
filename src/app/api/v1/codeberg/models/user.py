@@ -2,7 +2,7 @@ from datetime import datetime
 
 from pydantic import BaseModel, EmailStr, HttpUrl
 
-from app.api.v1.codeberg.constants.enums import Visibility
+from app.api.v1.codeberg.enums import Visibility
 
 
 class User(BaseModel):

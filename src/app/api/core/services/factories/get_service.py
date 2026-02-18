@@ -2,10 +2,11 @@ from typing import Annotated, TypeAlias
 
 from fastapi import Depends, Path
 
-from app.api.core.services.constants.enums import GitProvider
+from app.api.core.services.enums import GitProvider
 from app.api.core.services.git_service import GitService
 from app.api.v1.codeberg.service import CodebergService
 from app.api.v1.github.service import GitHubService
+
 
 def __get_service(
     provider: Annotated[GitProvider, Path()],

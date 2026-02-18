@@ -9,6 +9,8 @@ class ExternalTrackerStyle(StrEnum):
 
 class MergeStyle(StrEnum):
     MERGE = "merge"
+    REBASE = "rebase"
+    FF_ONLY = "fast-forward-only"
 
 
 class ObjectFormatName(StrEnum):
@@ -33,10 +35,6 @@ class Unit(StrEnum):
     PULLS = "repo.pulls"
     RELEASES = "repo.releases"
     WIKI = "repo.wiki"
-
-
-class UpdateStyle(StrEnum):
-    MERGE = "merge"
 
 
 class Visibility(StrEnum):

@@ -2,8 +2,8 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from app.api.core.query_params.constants.enums import SortOrder
-from app.api.core.query_params.models import BaseQueryParams
+from app.api.core.query_params.enums import SortOrder
+from app.api.core.query_params.models.base_query_params import BaseQueryParams
 
 
 class TextQueryParams(BaseQueryParams):

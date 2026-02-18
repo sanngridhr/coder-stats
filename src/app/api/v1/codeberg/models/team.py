@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field, HttpUrl
 
-from app.api.v1.codeberg.constants.enums import Permission, Unit, Visibility
+from app.api.v1.codeberg.enums import Permission, Unit, Visibility
 
 
 class Organization(BaseModel):
