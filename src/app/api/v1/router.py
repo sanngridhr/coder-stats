@@ -8,7 +8,7 @@ from app.api.core.query_params.models import (
     TextQueryParamsDependency,
 )
 from app.api.core.services.datavis_service import DataVisServiceDependency
-from app.api.core.services.git_service import GitServiceDependency
+from app.api.core.services.factories.get_service import GitServiceDependency
 
 router: APIRouter = APIRouter(prefix="/v1")
 

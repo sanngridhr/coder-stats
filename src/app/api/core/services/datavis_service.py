@@ -24,9 +24,10 @@ class DataVisService:
         params: PieChartQueryParams,
     ) -> Figure:
         limit: int = params.limit  # pyright: ignore[reportAssignmentType]
-        colours: list[str] = [c + params.theme_transparency for c in params.theme.gradient]
+        gradient: list[str] = [c + params.theme_transparency for c in params.theme.gradient]
         if params.theme_reverse:
-            colours.reverse()
+            gradient.reverse()
+        bg, fg = params.theme.background, params.theme.foreground
 
         fig, ax = plt.subplots()
 
@@ -38,15 +39,16 @@ class DataVisService:
         keys: list[str] = list(cut_data.keys())
         values: list[int | float] = list(cut_data.values())
 
+
         ax.pie(
             x=values,
             labels=None,
             radius=params.radius,
-            colors=colours,
+            colors=gradient,
+            explode=[params.gap] * len(values),
+            wedgeprops={"width": params.width, "edgecolor": bg},
             counterclock=(params.direction == Direction.ANTICLOCKWISE),
             startangle=params.start_angle,
-            wedgeprops={"width": params.width},
-            explode=[params.gap] * min(limit, len(values)),
         )
 
         ax.legend(
