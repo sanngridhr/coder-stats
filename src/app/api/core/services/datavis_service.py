@@ -24,7 +24,7 @@ class DataVisService:
         params: PieChartQueryParams,
     ) -> Figure:
         limit: int = params.limit  # pyright: ignore[reportAssignmentType]
-        colours: list[str] = [c + params.theme_transparency for c in params.theme.get_colours()]
+        colours: list[str] = [c + params.theme_transparency for c in params.theme.gradient]
         if params.theme_reverse:
             colours.reverse()
 

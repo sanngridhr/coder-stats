@@ -24,7 +24,7 @@ class PieChartQueryParams(BaseQueryParams):
     def auto_limit(cls, data: dict) -> dict:
         if data["limit"] == "auto":
             theme: Theme = data["theme"]
-            data["limit"] = len(theme.get_colours())
+            data["limit"] = len(theme.gradient)
         return data
 
 
